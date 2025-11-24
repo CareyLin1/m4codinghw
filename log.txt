@@ -1,0 +1,15 @@
+Task 2.1:
+I used Extract Method to move the pricing switch into getAmount(Performance).
+I renamed variables to improve clarity (result → statementText, p → performance).
+
+Task 2.2:
+I used Extract Method to move volume credit logic into getVolumeCredits(Performance).
+This simplified the statement() loop and centralized credit rules.
+
+Task 2.3:
+I removed the local formatting variable and instead format inside the output expression.
+This reduced temporary state and made statement() more concise.
+
+Task 2.4:
+I removed the temporary totalAmount and volumeCredits from the loop and now rely on helper methods.
+This completed separation of formatting from calculation and improved cohesion.
