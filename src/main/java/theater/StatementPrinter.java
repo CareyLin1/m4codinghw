@@ -23,28 +23,22 @@ public class StatementPrinter {
      * @throws RuntimeException if one of the play types is not known
      */
     public String statement() {
-        int totalAmount = 0;
-        int volumeCredits = 0;
+
         final StringBuilder statementText = new StringBuilder("Statement for " + invoice.getCustomer()
                 + System.lineSeparator());
-
-        final NumberFormat frmt = NumberFormat.getCurrencyInstance(Locale.US);
 
         for (Performance performance : invoice.getPerformances()) {
 
             // print line for this order
             statementText.append(String.format("  %s: %s (%s seats)%n",
                     getPlay(performance).getName(),
-                    frmt.format(getAmount(performance) / Constants.PERCENT_FACTOR),
+                    formatAmount(getAmount(performance)),
                     performance.getAudience()));
-            totalAmount += getAmount(performance);
-
-            // add volume credits
-            volumeCredits += getVolumeCredits(performance);
         }
         statementText.append(String.format("Amount owed is %s%n",
-                frmt.format(totalAmount / Constants.PERCENT_FACTOR)));
-        statementText.append(String.format("You earned %s credits%n", volumeCredits));
+                formatAmount(getTotalAmount())));
+        statementText.append(String.format("You earned %s credits%n",
+                getTotalVolumeCredits()));
         return statementText.toString();
     }
 
@@ -65,6 +59,27 @@ public class StatementPrinter {
         }
 
         return result;
+    }
+
+    private int getTotalAmount() {
+        int result = 0;
+        for (Performance performance : invoice.getPerformances()) {
+            result += getAmount(performance);
+        }
+        return result;
+    }
+
+    private int getTotalVolumeCredits() {
+        int result = 0;
+        for (Performance performance : invoice.getPerformances()) {
+            result += getVolumeCredits(performance);
+        }
+        return result;
+    }
+
+    private String formatAmount(int amount) {
+        final NumberFormat frmt = NumberFormat.getCurrencyInstance(Locale.US);
+        return frmt.format(amount / (double) Constants.PERCENT_FACTOR);
     }
 
     private int getAmount(Performance performance) {
