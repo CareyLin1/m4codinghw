@@ -1,15 +1,17 @@
+Task 1.1:
+Initial project setup and review of existing structure.
+
+Task 1.2:
+Verified existing tests and understanding of expected behavior.
+
 Task 2.1:
-I used Extract Method to move the pricing switch into getAmount(Performance).
-I renamed variables to improve clarity (result → statementText, p → performance).
+Extracted getAmount method from statement() to separate pricing logic.
 
 Task 2.2:
-I used Extract Method to move volume credit logic into getVolumeCredits(Performance).
-This simplified the statement() loop and centralized credit rules.
+Extracted getVolumeCredits method to simplify statement() and centralize credit rules.
 
 Task 2.3:
-I removed the local formatting variable and instead format inside the output expression.
-This reduced temporary state and made statement() more concise.
+Removed formatting temporary by introducing formatAmount helper method.
 
 Task 2.4:
-I removed the temporary totalAmount and volumeCredits from the loop and now rely on helper methods.
-This completed separation of formatting from calculation and improved cohesion.
+Removed temp variables totalAmount and volumeCredits by extracting getTotalAmount and getTotalVolumeCredits.

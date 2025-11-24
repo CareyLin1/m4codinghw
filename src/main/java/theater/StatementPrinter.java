@@ -77,6 +77,10 @@ public class StatementPrinter {
         return result;
     }
 
+    private String usd(int amount) {
+        return formatAmount(amount);
+    }
+
     private String formatAmount(int amount) {
         final NumberFormat frmt = NumberFormat.getCurrencyInstance(Locale.US);
         return frmt.format(amount / (double) Constants.PERCENT_FACTOR);
